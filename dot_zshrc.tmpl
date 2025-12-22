@@ -1,0 +1,102 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="{{ .chezmoi.homeDir }}/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# DISABLE_AUTO_UPDATE="true"
+# DISABLE_UPDATE_PROMPT="true"
+# DISABLE_LS_COLORS="true"
+# DISABLE_AUTO_TITLE="true"
+# ENABLE_CORRECTION="true"
+# COMPLETION_WAITING_DOTS="true"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+export PATH="$HOME/.jenv/bin:$HOME/go/bin:$PATH"
+eval "$(jenv init -)"
+
+alias vi=nvim
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+autoload -U add-zsh-hook
+
+load-nvmrc() {
+  local nvmrc_path
+  nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version
+    nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+      nvm use
+    fi
+  elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+
+export PATH="$PATH:/{{ .chezmoi.homeDir }}/.local/bin"
+
+mvn-quickrelease() {
+    local current_version=$(xpath -q -e "/project/version/text()" pom.xml)
+    local git_hash=$(git log --oneline | head -n1 | awk '{print $1}')
+    local release_version="$(echo $current_version | sed "s/SNAPSHOT/${git_hash}/g")"
+    mvn -B "-Darguments=-DskipTests" release:prepare -DdevelopmentVersion="$current_version" -DreleaseVersion="$release_version"
+}
+
+setopt no_share_history
+unsetopt share_history
+
+
+alias encrypt-tokens="gpg --output ~/.tokens.gpg --symmetric ~/.tokens.json"
+alias tokens=source tokens.sh
+
+{{ if eq .chezmoi.hostname "T0WVTQYWPY" }}
+# Work Mac
+export PATH="{{ .chezmoi.homeDir }}/.orbit/bin:$PATH"
+eval $(thefuck --alias)
+{{ else }}
+# Home Linux
+alias turn-off="poweroff & exit"
+alias susp="systemctl suspend"
+{{ end }}
