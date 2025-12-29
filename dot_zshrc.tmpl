@@ -76,6 +76,7 @@ add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
 export PATH="$PATH:/{{ .chezmoi.homeDir }}/.local/bin"
+export EDITOR="/opt/homebrew/bin/nvim"
 
 mvn-quickrelease() {
     local current_version=$(xpath -q -e "/project/version/text()" pom.xml)
