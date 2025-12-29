@@ -8,7 +8,9 @@ return {
 			table.insert(opts.ensure_installed, "http")
 		end,
 	},
-	opts = {
-		_log_level = vim.log.levels.DEBUG,
-	},
+	config = function()
+		vim.g.rest_nvim = {
+			_log_level = vim.log.levels.DEBUG,
+		}
+	end,
 }
