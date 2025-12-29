@@ -12,7 +12,5 @@ return {
 		vim.g.rest_nvim = {
 			_log_level = vim.log.levels.DEBUG,
 		}
-
-		vim.o.formatexpr = require("conform").formatexpr()
 	end,
 }
