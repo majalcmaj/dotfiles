@@ -8,4 +8,7 @@ return {
 			table.insert(opts.ensure_installed, "http")
 		end,
 	},
+	opts = {
+		_log_level = vim.log.levels.DEBUG,
+	},
 }
