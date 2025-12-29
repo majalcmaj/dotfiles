@@ -39,4 +39,7 @@ return { -- Autoformat
 			-- javascript = { "prettierd", "prettier", stop_after_first = true },
 		},
 	},
+	config = function()
+		vim.o.formatexpr = require("conform").formatexpr()
+	end,
 }
