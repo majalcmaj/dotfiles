@@ -92,7 +92,7 @@ unsetopt share_history
 alias encrypt-tokens="gpg --output ~/.tokens.gpg --symmetric ~/.tokens.json"
 alias tokens=source tokens.sh
 
-{{ if eq .chezmoi.hostname "T0WVTQYWPY" }}
+{{ if eq .chezmoi.os "darwin" }}
 # Work Mac
 export PATH="{{ .chezmoi.homeDir }}/.orbit/bin:$PATH"
 eval $(thefuck --alias)
