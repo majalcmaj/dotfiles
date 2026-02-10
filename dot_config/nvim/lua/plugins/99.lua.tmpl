@@ -1,6 +1,9 @@
 return {
 	"ThePrimeagen/99",
 	enabled = {{ if eq .chezmoi.os "darwin" }}true{{ else }}false{{ end }},
+	dependencies = {
+		"hrsh7th/nvim-cmp"
+	},
 	config = function()
 		local _99 = require("99")
 
