@@ -1,5 +1,12 @@
 -- Neo-tree is a Neovim plugin to browse the file system
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function()
+		if #vim.api.nvim_list_wins() == 1 and require("neo-tree.utils").is_neotree_buffer() then
+			vim.cmd("quit")
+		end
+	end,
+})
 
 return {
 	"nvim-neo-tree/neo-tree.nvim",
