@@ -14,14 +14,16 @@ return {
 	keys = {
 		{ "\\", ":Neotree reveal<CR>", desc = "NeoTree reveal", silent = true },
 	},
-	close_if_last_window = true,
-	opts = {
-		filesystem = {
-			window = {
-				mappings = {
-					["\\"] = "close_window",
+	config = function()
+		require("neo-tree").setup({
+			close_if_last_window = true,
+			filesystem = {
+				window = {
+					mappings = {
+						["\\"] = "close_window",
+					},
 				},
 			},
-		},
-	},
+		})
+	end,
 }
