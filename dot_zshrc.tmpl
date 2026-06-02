@@ -57,9 +57,12 @@ mvn-quickrelease() {
 setopt no_share_history
 unsetopt share_history
 
+tokens() {
+    [ -z "$1" ] && echo "Provide token prefix" && return 1
+    export "$1_TOKEN"=$(gpg --quiet --decrypt ~/.tokens.gpg | jq -r ".$1")
+}
 
 alias encrypt-tokens="gpg --output ~/.tokens.gpg --symmetric ~/.tokens.json"
-alias tokens='source tokens.sh'
 
 {{ if eq .chezmoi.os "darwin" }}
 # Work Mac
