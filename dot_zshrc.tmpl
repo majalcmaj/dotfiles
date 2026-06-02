@@ -44,7 +44,7 @@ export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 
-export PATH="$PATH:/{{ .chezmoi.homeDir }}/.local/bin"
+export PATH="$PATH:{{ .chezmoi.homeDir }}/.local/bin"
 export EDITOR="{{ if eq .chezmoi.os "darwin" }}/opt/homebrew/bin/nvim{{ else }}/usr/bin/nvim{{ end }}"
 
 mvn-quickrelease() {

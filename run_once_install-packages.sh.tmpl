@@ -6,14 +6,7 @@ if ! command -v brew &>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
-brew "neovim"
-brew "mise"
-brew "thefuck"
-brew "gpg"
-brew "tmux"
-brew "jq"
-EOF
+brew install neovim mise thefuck gpg tmux jq
 
 {{ else }}
 sudo apt-get update -qq
