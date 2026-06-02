@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euo pipefail
+
+{{ if eq .chezmoi.os "darwin" }}
+if ! command -v brew &>/dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+brew "neovim"
+brew "mise"
+brew "thefuck"
+brew "gpg"
+brew "tmux"
+brew "jq"
+EOF
+
+{{ else }}
+sudo apt-get update -qq
+sudo apt-get install -y -qq neovim tmux jq gpg curl git
+{{ end }}
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+if ! fc-list | grep -qi "JetBrainsMono Nerd Font" 2>/dev/null; then
+    echo "Note: Install JetBrainsMono Nerd Font manually from https://www.nerdfonts.com/font-downloads"
+fi

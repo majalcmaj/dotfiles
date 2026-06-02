@@ -1,0 +1,7 @@
+{{ if eq .chezmoi.os "darwin" }}
+.config/i3
+.config/i3/**
+{{ end }}
+
+.config/alacritty/alacritty-old.yml
+.config/nvim/lazy-lock.json
