@@ -30,13 +30,29 @@ return { -- Autoformat
 		end,
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "isort", "black" },
+			python = { "ruff_format", "black", stop_after_first = true },
 			json = { "jq" },
-			-- Conform can also run multiple formatters sequentially
-			-- python = { "isort", "black" },
-			--
-			-- You can use 'stop_after_first' to run the first available formatter from the list
-			-- javascript = { "prettierd", "prettier", stop_after_first = true },
+			javascript = { "prettierd", "prettier", stop_after_first = true },
+			typescript = { "prettierd", "prettier", stop_after_first = true },
+			go = { "gofmt" },
 		},
-	}
+	},
+	init = function()
+		local skip_ft = { text = true, help = true, markdown = true, nofile = true, [""] = true }
+		local warned = {}
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			group = vim.api.nvim_create_augroup("conform-warn-no-formatter", { clear = true }),
+			callback = function(args)
+				local ft = vim.bo[args.buf].filetype
+				if skip_ft[ft] or warned[ft] then
+					return
+				end
+				local formatters = require("conform").list_formatters(args.buf)
+				if #formatters == 0 then
+					warned[ft] = true
+					vim.notify("No formatter for filetype: " .. ft, vim.log.levels.WARN)
+				end
+			end,
+		})
+	end,
 }

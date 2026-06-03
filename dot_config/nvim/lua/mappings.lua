@@ -4,7 +4,7 @@ map('n', '<leader>bD', function()
   for _, i in ipairs(vim.api.nvim_list_bufs()) do
     if i ~= current_buf then
       local type = vim.api.nvim_get_option_value('buftype', { buf = i })
-      if type ~= 'nofile' and vim.api.nvim_buf_get_option(i, 'modified') then
+      if type ~= 'nofile' and vim.api.nvim_get_option_value('modified', { buf = i }) then
         vim.api.nvim_buf_call(i, function()
           vim.cmd 'w'
         end)

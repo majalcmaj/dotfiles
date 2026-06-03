@@ -166,6 +166,12 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- Core editor options set before plugins to avoid race with guess-indent
+vim.o.tabstop = 4
+vim.o.expandtab = true
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -244,6 +250,15 @@ require("lazy").setup({
 		{ import = "plugins" },
 	},
 }, {
+	checker = {
+		enabled = true,
+		notify = true,
+		frequency = 86400,
+	},
+	change_detection = {
+		enabled = true,
+		notify = false,
+	},
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
 		-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
