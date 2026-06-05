@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+set -euxo pipefail
 
 {{ if eq .chezmoi.os "darwin" }}
 if ! command -v brew &>/dev/null; then
@@ -9,14 +9,15 @@ fi
 brew install neovim mise thefuck gpg tmux jq
 
 {{ else }}
-sudo apt-get update -qq
-sudo apt-get install -y -qq neovim tmux jq gpg curl git
+sudo pacman -Syu
+sudo pacman --verbose -Syu neovim tmux jq curl git mise
 {{ end }}
+
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-if ! fc-list | grep -qi "JetBrainsMono Nerd Font" 2>/dev/null; then
-    echo "Note: Install JetBrainsMono Nerd Font manually from https://www.nerdfonts.com/font-downloads"
+if ! fc-list | grep -qi "JetBrains Mono" 2>/dev/null; then
+    echo "Note: Install JetBrains Mono Font manually from https://www.nerdfonts.com/font-downloads"
 fi
