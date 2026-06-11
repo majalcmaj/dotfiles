@@ -13,7 +13,7 @@ return {
 		local basename = vim.fs.basename(cwd)
 		_99.setup({
 			provider =  {{ if eq .chezmoi.os "darwin" }}_99.CursorAgentProvider{{ else }}_99.Providers.ClaudeCodeProvider{{ end }},
-			model = "opus-4.6",
+			model = "sonnet-4.6",
 			logger = {
 				level = _99.DEBUG,
 				path = "/tmp/" .. basename .. ".99.debug",
