@@ -34,7 +34,7 @@ return {
 		{
 			"<leader>dt",
 			function()
-				require("dap").test_method()
+				require("dap-python").test_method()
 			end,
 			desc = "Debug: test",
 		},
@@ -53,7 +53,7 @@ return {
 			desc = "Debug: Set Breakpoint",
 		},
 		{
-			"<leader>di",
+			{ "<leader>di", "<F7>" },
 			function()
 				require("dap").step_into()
 			end,
