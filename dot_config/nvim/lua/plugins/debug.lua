@@ -53,7 +53,14 @@ return {
 			desc = "Debug: Set Breakpoint",
 		},
 		{
-			{ "<leader>di", "<F7>" },
+			"<leader>di",
+			function()
+				require("dap").step_into()
+			end,
+			desc = "Debug: Step Into (also <F7>)",
+		},
+		{
+			"<F7>",
 			function()
 				require("dap").step_into()
 			end,
@@ -64,10 +71,24 @@ return {
 			function()
 				require("dap").step_over()
 			end,
+			desc = "Debug: Step Over (also <F8>)",
+		},
+		{
+			"<F8>",
+			function()
+				require("dap").step_over()
+			end,
 			desc = "Debug: Step Over",
 		},
 		{
 			"<leader>dO",
+			function()
+				require("dap").step_out()
+			end,
+			desc = "Debug: Step Out (also <F9>)",
+		},
+		{
+			"<F9>",
 			function()
 				require("dap").step_out()
 			end,
