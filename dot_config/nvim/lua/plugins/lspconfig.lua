@@ -58,7 +58,9 @@ return {
 					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
 
-				map("gS", vim.lsp.stop_client(vim.lsp.get_active_clients()), "[S]top LSP -> :e to restart")
+				map("gS", function()
+					vim.lsp.stop_client(vim.lsp.get_clients({ bufnr = bufnr }))
+				end, "[S]top LSP -> :e to restart")
 
 				-- Rename the variable under your cursor.
 				-- Most Language Servers support renaming across files, etc.
