@@ -1,0 +1,2 @@
+.config/nvim/lua/plugins/treesitter.lua
+.config/nvim/lua/plugins/lspconfig.lua

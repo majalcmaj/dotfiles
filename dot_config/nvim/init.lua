@@ -283,6 +283,8 @@ require("lazy").setup({
 vim.schedule(function()
 	require("mappings")
 	require("options")
+	require("treesitter") -- native treesitter (highlight/folds + :TSBuild)
+	require("lsp") -- native LSP (keymaps, diagnostics, enable servers)
 end)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
