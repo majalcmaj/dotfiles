@@ -220,7 +220,7 @@ return {
 					},
 				},
 			},
-			terraform_ls = { "tf" },
+			["terraform-ls"] = { "tf" },
 		}
 
 		-- Ensure the servers and tools above are installed
