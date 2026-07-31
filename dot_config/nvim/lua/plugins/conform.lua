@@ -18,7 +18,7 @@ return { -- Autoformat
 			-- Disable "format_on_save lsp_fallback" for languages that don't
 			-- have a well standardized coding style. You can add additional
 			-- languages here or re-enable it for the disabled ones.
-			local disable_filetypes = { c = true, cpp = true, json = true }
+			local disable_filetypes = { c = true, cpp = true }
 			if disable_filetypes[vim.bo[bufnr].filetype] then
 				return nil
 			else
@@ -38,7 +38,7 @@ return { -- Autoformat
 		},
 	},
 	init = function()
-		local skip_ft = { text = true, help = true, markdown = true, nofile = true, [""] = true }
+		local skip_ft = { text = true, help = true, markdown = true, json = true, nofile = true, [""] = true }
 		local warned = {}
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = vim.api.nvim_create_augroup("conform-warn-no-formatter", { clear = true }),
