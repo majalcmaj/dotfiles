@@ -3,6 +3,6 @@ return {
 	event = { "InsertLeave", "TextChanged" },
 	opts = {
 		write_all_buffers = true,
-		debounce_delay = 500,
+		debounce_delay = 1000,
 	},
 }
