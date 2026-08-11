@@ -25,6 +25,7 @@ return {
 				"typescript-language-server",
 				"terraform-ls",
 				"stylua", -- Used to format Lua code
+				"java-language-server",
 			},
 		})
 

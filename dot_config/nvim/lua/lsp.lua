@@ -128,4 +128,5 @@ vim.lsp.enable({
 	"ts_ls",
 	"gopls",
 	"terraformls",
+	"java-language-server",
 })
