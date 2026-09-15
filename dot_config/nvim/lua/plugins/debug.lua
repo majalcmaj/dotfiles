@@ -34,9 +34,27 @@ return {
 		{
 			"<leader>dt",
 			function()
+				require("dap-go").debug_test()
 				require("dap-python").test_method()
 			end,
+			ft = "python",
 			desc = "Debug: test",
+		},
+		{
+			"<leader>dt",
+			function()
+				require("dap-go").debug_test()
+			end,
+			ft = "go",
+			desc = "Debug: test",
+		},
+		{
+			"<leader>dT",
+			function()
+				require("dap-go").debug_last_test()
+			end,
+			ft = "go",
+			desc = "Debug: last test",
 		},
 		{
 			"<leader>db",
