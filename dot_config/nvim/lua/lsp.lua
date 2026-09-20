@@ -124,7 +124,7 @@ vim.lsp.config("*", {
 -- Mason (see lua/plugins/mason.lua), whose bin dir is prepended to PATH.
 vim.lsp.enable({
 	"lua_ls",
-	"pyright",
+	"ruff",
 	"ts_ls",
 	"gopls",
 	"terraformls",
