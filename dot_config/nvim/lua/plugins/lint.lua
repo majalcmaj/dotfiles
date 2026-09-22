@@ -11,7 +11,7 @@ return {
 			local lint = require("lint")
 			lint.linters_by_ft = {
 				-- markdown = { 'markdownlint' }, -- Irritating as hell
-				python = { "ruff" },
+				-- python handled by the native `ruff` LSP server (lsp/ruff.lua), not nvim-lint
 				javascript = { "eslint" },
 				typescript = { "eslint" },
 			}
