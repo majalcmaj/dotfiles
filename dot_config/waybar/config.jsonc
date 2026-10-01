@@ -4,12 +4,12 @@
     "height": 30,
     "spacing": 8,
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
-    "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "tray"],
+    "modules-center": [],
+    "modules-right": ["pulseaudio", "cpu", "memory", "battery", "tray", "clock"],
 
     "hyprland/workspaces": { "format": "{id}", "on-click": "activate" },
     "hyprland/window": { "max-length": 60, "separate-outputs": true },
-    "clock": { "format": "{:%a %d %b  %H:%M}", "tooltip-format": "{:%Y-%m-%d}" },
+    "clock": { "format": "{:%a %Y-%m-%d %H:%M}", "tooltip-format": "{:%Y-%m-%d}" },
     "cpu": { "format": "\uf2db {usage}%" },
     "memory": { "format": "\uf538 {percentage}%" },
     "battery": {
@@ -17,13 +17,6 @@
         "format-charging": "\uf0e7 {capacity}%",
         "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
         "states": { "warning": 25, "critical": 10 }
-    },
-    "network": {
-        "format-wifi": "\uf1eb {essid}",
-        "format-ethernet": "\uf0e8 {ipaddr}",
-        "format-disconnected": "\uf071 off",
-        "tooltip-format": "{ifname}: {ipaddr}",
-        "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
