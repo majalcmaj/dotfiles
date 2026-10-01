@@ -22,7 +22,8 @@
         "format-wifi": "\uf1eb {essid}",
         "format-ethernet": "\uf0e8 {ipaddr}",
         "format-disconnected": "\uf071 off",
-        "tooltip-format": "{ifname}: {ipaddr}"
+        "tooltip-format": "{ifname}: {ipaddr}",
+        "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
