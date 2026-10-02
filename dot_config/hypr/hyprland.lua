@@ -143,6 +143,9 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
 
+-- Screenshot: select region, save to ~/Pictures/Screenshots and copy to clipboard (needs grim, slurp, wl-clipboard)
+hl.bind("Print", hl.dsp.exec_cmd([[sh -c 'f="$HOME/Pictures/Screenshots/$(date --iso-8601=seconds).png"; grim -g "$(slurp)" "$f" && wl-copy -t image/png < "$f"']]))
+
 hl.window_rule({
     name = "suppress-maximize-events",
     match = { class = ".*" },
