@@ -2,6 +2,8 @@
 
 hl.monitor({ output = "",     mode = "preferred", position = "auto", scale = "auto" })
 hl.monitor({ output = "DP-3", mode = "preferred", position = "auto", scale = 1.25 })
+hl.monitor({ output = "eDP-1", mode = "preferred", position = "0x0", scale = 1.5 })
+hl.monitor({ output = "DP-4", mode = "3440x1440@144", position = "1280x0", scale = 1 })
 
 local terminal    = "alacritty"
 local fileManager = "dolphin"
@@ -11,12 +13,16 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(terminal)
     hl.exec_cmd("waybar")
     hl.exec_cmd("nm-applet")
+    hl.exec_cmd("hypridle")
 end)
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
 hl.config({
+    xwayland = {
+        force_zero_scaling = true,
+    },
     general = {
         gaps_in = 3,
         gaps_out = 5,
@@ -81,6 +87,7 @@ local mainMod = "SUPER"
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprctl reload"))
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exit())
 
@@ -89,15 +96,20 @@ local dirs = {
     J = "left", K = "down", L = "up", semicolon = "right",
     left = "left", down = "down", up = "up", right = "right",
 }
+local short = { left = "l", right = "r", up = "u", down = "d" }
 for key, dir in pairs(dirs) do
     hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ direction = dir }))
-    hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ direction = dir }))
+    -- movewindoworgroup: moves window, or merges it into an adjacent group
+    hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.exec_cmd("hyprctl dispatch movewindoworgroup " .. short[dir]))
 end
 
 hl.bind(mainMod .. " + H", hl.dsp.layout("preselect r"))
 hl.bind(mainMod .. " + V", hl.dsp.layout("preselect d"))
 hl.bind(mainMod .. " + E", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + W", hl.dsp.group.toggle())
+hl.bind(mainMod .. " + Tab", hl.dsp.group.next())
+hl.bind(mainMod .. " + SHIFT + Tab", hl.dsp.group.prev())
+hl.bind(mainMod .. " + CTRL + W", hl.dsp.exec_cmd("hyprctl dispatch moveoutofgroup"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
 hl.bind(mainMod .. " + SHIFT + space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + space", hl.dsp.window.cycle_next({ floating = true }))
