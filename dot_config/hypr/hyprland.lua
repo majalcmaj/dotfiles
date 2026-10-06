@@ -16,8 +16,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
 end)
 
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("XCURSOR_SIZE", "19")
+hl.env("HYPRCURSOR_SIZE", "19")
 
 hl.config({
     xwayland = {
@@ -25,7 +25,7 @@ hl.config({
     },
     general = {
         gaps_in = 3,
-        gaps_out = 5,:q
+        gaps_out = 5,
         border_size = 1,
         col = {
             active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
