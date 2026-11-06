@@ -8,7 +8,12 @@ fi
 
 brew install neovim mise thefuck gpg tmux jq
 
-{{ else }}
+{{ else if eq .chezmoi.osRelease.id "ubuntu" }}
+sudo add-apt-repository -y ppa:jdxcode/mise
+sudo apt update
+sudo apt install -y neovim tmux jq curl git mise luarocks
+
+{{ else if eq .chezmoi.osRelease.id "arch" }}
 sudo pacman -Syu
 sudo pacman --verbose -Syu neovim tmux jq curl git mise
 {{ end }}

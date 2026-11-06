@@ -72,6 +72,8 @@ fuck() {
   eval $(thefuck --alias)
   fuck "$@"
 }
+{{ else if eq .chezmoi.osRelease.id "ubuntu" }}
+# Hapag Linux
 {{ else }}
 # Home Linux
 alias turn-off="poweroff & exit"

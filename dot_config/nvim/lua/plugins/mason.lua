@@ -17,17 +17,22 @@ return {
 
 		-- Ensure servers and tools are installed. These are Mason package names.
 		--    Run :Mason to see status / install more; press g? for help.
-		require("mason-tool-installer").setup({
-			ensure_installed = {
-				"lua-language-server",
-				"pyright",
-				"gopls",
-				"typescript-language-server",
-				"terraform-ls",
-				"stylua", -- Used to format Lua code
-				"java-language-server",
-			},
-		})
+		local ensure_installed = {
+			"lua-language-server",
+			"pyright",
+			"typescript-language-server",
+			"terraform-ls",
+			"stylua", -- Used to format Lua code
+		}
+		-- Java language server is opt in: set NVIM_JAVA=1.
+		if vim.env.NVIM_JAVA == "1" then
+			table.insert(ensure_installed, "java-language-server")
+		end
+		-- gopls is built with `go install`, so it's optional.
+		if vim.fn.executable("go") == 1 then
+			table.insert(ensure_installed, "gopls")
+		end
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		-- We enable servers explicitly in lua/lsp.lua via vim.lsp.enable, so let
 		-- mason-lspconfig manage only its name mapping, not automatic enabling.

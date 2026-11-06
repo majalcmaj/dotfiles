@@ -1,0 +1,26 @@
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+return {
+	"github/copilot.vim",
+	event = "InsertEnter",
+	cmd = "Copilot",
+	init = function()
+		-- GitHub Enterprise instead of github.com; must be set before the plugin loads
+		vim.g.copilot_auth_provider_url = "https://hapag-lloyd-ag.ghe.com/"
+		vim.g.copilot_no_tab_map = true
+		vim.keymap.set("i", "<M-l>", 'copilot#Accept("")', { expr = true, replace_keycodes = false, desc = "Copilot accept" })
+	end,
+	keys = {
+		{
+			"<leader>tc",
+			function()
+				local enabled = vim.g.copilot_enabled ~= 0 and vim.g.copilot_enabled ~= false
+				vim.cmd(enabled and "Copilot disable" or "Copilot enable")
+				vim.notify("Copilot " .. (enabled and "disabled" or "enabled"))
+			end,
+			desc = "[T]oggle [C]opilot",
+		},
+	},
+}
+{{- else -}}
+return {}
+{{- end }}

@@ -127,10 +127,18 @@ vim.lsp.enable({
 	"ruff",
 	"pyright",
 	"ts_ls",
-	"gopls",
 	"terraformls",
-	"java-language-server",
 })
+
+-- Optional: Java language server, opt in with NVIM_JAVA=1.
+if vim.env.NVIM_JAVA == "1" then
+	vim.lsp.enable("java-language-server")
+end
+
+-- Optional: only enable gopls when the binary is available.
+if vim.fn.executable("gopls") == 1 then
+	vim.lsp.enable("gopls")
+end
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp_attach_disable_ruff_hover", { clear = true }),
